@@ -7,12 +7,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var tempNote = Note()
+
+    private val noteList = ArrayList<Note>()
+    private var recyclerView: RecyclerView? = null
+    private var adapter: NoteAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,22 +27,27 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val dialog = DialogNewNote()
+            dialog.show(supportFragmentManager, "")
         }
 
-        val button = findViewById<View>(R.id.button) as Button
-        button.setOnClickListener {
-            val dialog = DialogShowNote()
+        recyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
 
-            dialog.sendNoteSelected(tempNote)
+        adapter = NoteAdapter(this, noteList)
+        val layoutManager = LinearLayoutManager(applicationContext)
 
-            dialog.show(supportFragmentManager, "123")
-        }
+        recyclerView!!.layoutManager = layoutManager
+        recyclerView!!.itemAnimator = DefaultItemAnimator()
+
+        recyclerView!!.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
+        recyclerView!!.adapter = adapter
+
     }
 
-    fun createNewNote(n: Note){
-        tempNote = n
+    fun createNewNote(n: Note) {
+        noteList.add(n)
+        adapter!!.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,5 +64,13 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun showNote(noteToShow: Int) {
+        val dialog = DialogShowNote()
+        dialog.sendNoteSelected(noteList[noteToShow])
+        dialog.show(
+            supportFragmentManager, ""
+        )
     }
 }

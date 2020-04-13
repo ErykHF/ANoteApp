@@ -21,6 +21,8 @@ class DialogNewNote :DialogFragment() {
 
         val editTitle = dialogView.findViewById(R.id.editTitle) as EditText
 
+        val editDescription = dialogView.findViewById<EditText>(R.id.editDescription)
+
         val checkBoxIdea = dialogView.findViewById<CheckBox>(R.id.checkBoxIdea)
 
         val checkBoxTodo = dialogView.findViewById<CheckBox>(R.id.checkBoxTodo)
