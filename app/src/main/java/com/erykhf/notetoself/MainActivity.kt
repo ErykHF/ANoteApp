@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
 
     private val noteList = ArrayList<Note>()
-    private var recyclerView: RecyclerView? = null
     private var adapter: NoteAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,17 +31,14 @@ class MainActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "")
         }
 
-        recyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
 
         adapter = NoteAdapter(this, noteList)
         val layoutManager = LinearLayoutManager(applicationContext)
 
-        recyclerView!!.layoutManager = layoutManager
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-
-        recyclerView!!.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-        recyclerView!!.adapter = adapter
+        recyclerView.layoutManager = layoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        recyclerView.adapter = adapter
 
     }
 

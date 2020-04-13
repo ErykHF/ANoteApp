@@ -23,7 +23,7 @@ class NoteAdapter(private val mainActivity: MainActivity, private val noteList: 
     override fun getItemCount(): Int {
 
         if (noteList != null){
-            return noteList.size 
+            return noteList.size
         }
 
         return -1
