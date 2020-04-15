@@ -1,16 +1,12 @@
 package com.erykhf.notetoself
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -19,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private val noteList = ArrayList<Note>()
-    private var adapter: NoteAdapter? = null
+    lateinit var noteAdapter: NoteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +27,22 @@ class MainActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "")
         }
 
+        noteAdapter = NoteAdapter(this, noteList)
 
-        adapter = NoteAdapter(this, noteList)
-        val layoutManager = LinearLayoutManager(applicationContext)
+        recyclerView.apply {
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-        recyclerView.adapter = adapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            itemAnimator = DefaultItemAnimator()
+            addItemDecoration(DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL))
+            adapter = noteAdapter
+
+        }
 
     }
 
     fun createNewNote(n: Note) {
         noteList.add(n)
-        adapter!!.notifyDataSetChanged()
+        noteAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

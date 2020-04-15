@@ -3,9 +3,8 @@ package com.erykhf.notetoself
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.dialog_show_note.view.*
+import kotlinx.android.synthetic.main.listitem.view.*
 
 class NoteAdapter(private val mainActivity: MainActivity, private val noteList: List<Note>) :
     RecyclerView.Adapter<NoteAdapter.ListItemHolder>() {
@@ -35,10 +34,6 @@ class NoteAdapter(private val mainActivity: MainActivity, private val noteList: 
 
         holder.description.text = note.description
 
-
-
-
-
         when {
             note.idea -> holder.status.text = mainActivity.resources.getString(R.string.ideas_text)
 
@@ -48,22 +43,19 @@ class NoteAdapter(private val mainActivity: MainActivity, private val noteList: 
         }
     }
 
+    inner class ListItemHolder (itemsView: View) : RecyclerView.ViewHolder(itemsView), View.OnClickListener{
 
+        internal var title = itemsView.textViewTitle
 
+        internal var description = itemsView.textViewDescription
 
-    inner class ListItemHolder (view: View) : RecyclerView.ViewHolder(view), View.OnClickListener{
-
-        internal var title = view.findViewById<View>(R.id.textViewTitle) as TextView
-
-        internal var description = view.findViewById<View>(R.id.textViewDescription) as TextView
-
-        internal var status = view.findViewById<View>(R.id.textViewStatus) as TextView
+        internal var status = itemsView.textViewStatus
 
 
         init {
 
-            view.isClickable = true
-            view.setOnClickListener(this)
+            itemsView.isClickable = true
+            itemsView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
