@@ -9,7 +9,7 @@ import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.dialog_new_note.*
 
-class DialogNewNote :DialogFragment() {
+class DialogNewNote : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -34,7 +34,7 @@ class DialogNewNote :DialogFragment() {
         val btnOK = dialogView.findViewById(R.id.buttonOK) as Button
 
 
-        builder.setView(dialogView).setMessage("Add a new note")
+        builder.setView(dialogView).setMessage(resources.getString(R.string.add_new_note))
 
         btnCancel.setOnClickListener {
             dismiss()

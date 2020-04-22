@@ -34,21 +34,21 @@ class DialogShowNote : DialogFragment() {
 
         val txtIdea = dialogView.findViewById(R.id.textViewIdea) as TextView
 
-        if (!note!!.important){
+        if (!note!!.important) {
             txtImportant.visibility = View.GONE
         }
 
-        if (!note!!.todo){
+        if (!note!!.todo) {
             txtTodo.visibility = View.GONE
         }
 
-        if (!note!!.idea){
+        if (!note!!.idea) {
             txtIdea.visibility = View.GONE
         }
 
         val btnOK = dialogView.findViewById<Button>(R.id.buttonOK)
 
-        builder.setView(dialogView).setMessage("Your Note")
+        builder.setView(dialogView).setMessage(resources.getString(R.string.your_note))
 
         btnOK.setOnClickListener {
             dismiss()
@@ -58,8 +58,8 @@ class DialogShowNote : DialogFragment() {
     }
 
 
-//    Receive a note from the Mainactivity class
-    fun sendNoteSelected(noteSelected: Note){
+    //    Receive a note from the Mainactivity class
+    fun sendNoteSelected(noteSelected: Note) {
         note = noteSelected
 
     }
